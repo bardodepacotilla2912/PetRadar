@@ -1,4 +1,4 @@
-import winston from 'winston';
+import { createLogger, transports, format } from 'winston';
 import * as appInsights from 'applicationinsights';
 import { envs } from './envs';
 
@@ -10,9 +10,9 @@ appInsights
 
 const aiClient = appInsights.defaultClient;
 
-const appInsightsTransport = new winston.transports.Console({
+const appInsightsTransport = new transports.Console({
   level: 'info',
-  format: winston.format.printf(({ level, message, timestamp }) => {
+  format: format.printf(({ level, message, timestamp }) => {
     aiClient.trackTrace({
       message: `[${level}] ${message}`,
       properties: { timestamp },
@@ -21,11 +21,11 @@ const appInsightsTransport = new winston.transports.Console({
   }),
 });
 
-export const logger = winston.createLogger({
+export const logger = createLogger({
   level: 'info',
-  format: winston.format.combine(
-    winston.format.timestamp(),
-    winston.format.json(),
+  format: format.combine(
+    format.timestamp(),
+    format.json(),
   ),
-  transports: [new winston.transports.Console(), appInsightsTransport],
+  transports: [new transports.Console(), appInsightsTransport],
 });
