@@ -1,7 +1,7 @@
 # PetRadar API
 
 API REST construida con NestJS para reportar y encontrar mascotas perdidas usando geolocalización.
-
+miembros: Abraham Rodríguez 
 ## Tecnologias
 
 - **NestJS** - framework principal
