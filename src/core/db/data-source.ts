@@ -12,6 +12,7 @@ export const dataSourceOptions: DataSourceOptions = {
   database: envs.DB_NAME,
   entities: [LostPetEntity, FoundPetEntity],
   synchronize: true,
+  ssl: envs.DB_SSL ? { rejectUnauthorized: false } : false,
 };
 
 export const dataSource = new DataSource(dataSourceOptions);
